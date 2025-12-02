@@ -5,7 +5,7 @@ from tkinter import messagebox
 from tkinter import ttk
 from PIL import Image, ImageTk
 from io import BytesIO
-import zxingcpp   # New barcode scanner
+import zxingcpp
 
 # -------------------------------
 # FUNCTION 1 – SCAN BARCODES
@@ -27,10 +27,8 @@ def scan_barcode():
 
         cv2.imshow("Scanning Barcode", frame)
 
-        # Convert frame to grayscale
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-        # ZXing barcode detection
         results = zxingcpp.read_barcodes(gray)
 
         if results:
@@ -41,7 +39,6 @@ def scan_barcode():
             cv2.destroyAllWindows()
             return barcode_data
 
-        # Press q to stop
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
@@ -150,7 +147,6 @@ window.geometry("800x850")
 window.resizable(False, False)
 window.configure(bg="#785964")
 
-# Modern color palette
 PRIMARY   = "#d5c7bc"
 ACCENT    = "#454545"   
 DANGER    = "#EF4444"
@@ -163,7 +159,6 @@ title_label = tk.Label(window, text="NUTRITION SCANNER",
                        fg=PRIMARY, bg="#785964")
 title_label.pack(pady=(20, 10))
 
-# Top frame - Input
 frame_top = tk.Frame(window, bg="#785964")
 frame_top.pack(pady=15)
 
@@ -179,19 +174,15 @@ btn_fetch = tk.Button(frame_top, text="Fetch Data", font=("Arial", 12, "bold"),
                       cursor="hand2",command=fetch_data)
 btn_fetch.grid(row=0, column=1, padx=10)
 
-# Scan Button - Big, bold, colorful
 btn_scan = tk.Button(window, text="Scan Barcode", font=("Arial", 16, "bold"),
                      bg=ACCENT, fg="white", relief="flat", pady=15,
                      activebackground="#d5c7bc", cursor="hand2",command=start_scan)
 btn_scan.pack(pady=20, padx=80, fill="x")
 
-# Product image area - Card style
-
 img_label = tk.Label(window,padx=10, pady=10, bg=CARD, relief="solid", bd=1, highlightbackground="#E2E8F0",
                      text="Product image appears here",)
 img_label.pack(pady=10)
 
-# Nutrition table - Modern Treeview styling
 style = ttk.Style()
 style.theme_use("clam")
 
@@ -213,7 +204,6 @@ style.configure("Treeview.Heading",
 style.map("Treeview", background=[("selected", "#f1fffa")])
 style.map("Treeview.Heading", background=[("active", "#454545")])
 
-# Treeview container with soft shadow effect
 table_frame = tk.Frame(window, bg="#f1fffa")
 table_frame.pack(pady=10, padx=40, fill="both", expand=True)
 
